@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Math Playbook | IDEA Academy Hornets</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --blue:#003087;--blue-mid:#0047BB;--blue-light:#1A5FCC;
+  --yellow:#FFD100;--yellow-dark:#C9A800;--yellow-light:#FFE14D;
+  --dark:#080E1A;--dark2:#0D1525;--dark3:#131E30;
+  --card-bg:#0F1A2E;--card-border:rgba(255,255,255,0.07);
+  --white:#FAFAFA;--gray:#7A8BA8;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--dark);color:var(--white);font-family:'Nunito',sans-serif;overflow-x:hidden;}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100'%3E%3Cpath d='M28 66L0 50V16L28 0l28 16v34L28 66zM28 100L0 84V56l28 16 28-16v28L28 100z' fill='none' stroke='rgba(255,209,0,0.04)' stroke-width='1'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(8,14,26,0.95);backdrop-filter:blur(14px);border-bottom:2px solid rgba(255,209,0,0.25);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:66px;}
+.nav-left{display:flex;align-items:center;gap:1rem;}
+.nav-hornet{font-size:1.8rem;animation:buzz 0.5s ease infinite alternate;}
+@keyframes buzz{from{transform:rotate(-5deg) scale(1)}to{transform:rotate(5deg) scale(1.05)}}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:2px;line-height:1;}
+.nav-logo span{color:var(--yellow);}
+.nav-sub{font-size:0.65rem;color:var(--gray);font-weight:700;letter-spacing:2px;text-transform:uppercase;}
+.nav-links{display:flex;gap:1.5rem;list-style:none;}
+.nav-links a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:0.78rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;transition:color 0.2s;padding-bottom:2px;border-bottom:2px solid transparent;}
+.nav-links a:hover{color:var(--yellow);border-bottom-color:var(--yellow);}
+.nav-badge{background:var(--yellow);color:var(--dark);font-size:0.7rem;font-weight:900;padding:4px 12px;border-radius:50px;letter-spacing:1px;text-transform:uppercase;}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:7rem 2rem 4rem;position:relative;z-index:1;background:radial-gradient(ellipse at 30% 50%,rgba(0,71,187,0.25) 0%,transparent 60%),radial-gradient(ellipse at 70% 40%,rgba(255,209,0,0.12) 0%,transparent 55%);}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:1.5rem;animation:fadeUp 0.5s ease both;}
+.hero-eyebrow-line{width:40px;height:2px;background:var(--yellow);}
+.hero-eyebrow span{font-size:0.75rem;font-weight:900;letter-spacing:4px;text-transform:uppercase;color:var(--yellow);}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(4.5rem,13vw,10rem);line-height:0.88;letter-spacing:4px;animation:fadeUp 0.5s 0.1s ease both;}
+.hero-title .l1{color:var(--white);display:block;}
+.hero-title .l2{color:var(--yellow);display:block;}
+.hero-tag{display:inline-block;margin-top:1.5rem;background:rgba(0,71,187,0.3);border:1px solid rgba(0,71,187,0.6);color:rgba(255,255,255,0.8);font-size:0.85rem;font-weight:700;padding:6px 20px;border-radius:50px;letter-spacing:1px;animation:fadeUp 0.5s 0.15s ease both;}
+.hero-tag strong{color:var(--yellow);}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2.5rem;animation:fadeUp 0.5s 0.2s ease both;}
+.btn-h{padding:0.9rem 2.2rem;border-radius:50px;border:none;font-family:'Nunito',sans-serif;font-size:0.95rem;font-weight:800;cursor:pointer;text-decoration:none;display:inline-block;text-transform:uppercase;letter-spacing:1px;transition:all 0.2s;}
+.btn-h-y{background:var(--yellow);color:var(--dark);box-shadow:0 0 30px rgba(255,209,0,0.35);}
+.btn-h-y:hover{background:var(--yellow-light);transform:translateY(-2px);}
+.btn-h-o{background:transparent;color:var(--white);border:2px solid rgba(255,255,255,0.2);}
+.btn-h-o:hover{border-color:var(--yellow);color:var(--yellow);transform:translateY(-2px);}
+.hero-stats{display:flex;gap:3rem;margin-top:4rem;justify-content:center;flex-wrap:wrap;animation:fadeUp 0.5s 0.3s ease both;}
+.stat{text-align:center;}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--yellow);line-height:1;}
+.stat-l{font-size:0.72rem;color:var(--gray);text-transform:uppercase;letter-spacing:2px;margin-top:4px;font-weight:700;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+.section-wrap{position:relative;z-index:1;padding:5rem 2rem;max-width:1100px;margin:0 auto;}
+.s-eyebrow{font-size:0.72rem;font-weight:900;letter-spacing:4px;text-transform:uppercase;color:var(--yellow);margin-bottom:0.4rem;}
+.s-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,4rem);letter-spacing:2px;line-height:1;margin-bottom:2.5rem;}
+.s-title span{color:var(--yellow);}
+.divider{position:relative;z-index:1;height:1px;background:linear-gradient(90deg,transparent,rgba(255,209,0,0.3),transparent);max-width:1100px;margin:0 auto;}
+.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem;}
+.game-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:20px;overflow:hidden;transition:transform 0.25s,box-shadow 0.25s;cursor:pointer;}
+.game-card:hover{transform:translateY(-6px);box-shadow:0 20px 50px rgba(0,0,0,0.6),0 0 0 1px rgba(255,209,0,0.25);}
+.gc-top{height:130px;display:flex;align-items:center;justify-content:center;font-size:3.2rem;position:relative;overflow:hidden;}
+.gc-top.blue-g{background:linear-gradient(135deg,#003087,#0047BB);}
+.gc-top.yellow-g{background:linear-gradient(135deg,#8B6000,#C9A800);}
+.gc-top.teal-g{background:linear-gradient(135deg,#0A5F6E,#0FA8BF);}
+.gc-top.purple-g{background:linear-gradient(135deg,#3B1F7A,#6B3FBF);}
+.gc-top::after{content:'';position:absolute;bottom:-15px;right:-15px;width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,0.08);}
+.gc-body{padding:1.1rem;}
+.gc-tag{font-size:0.68rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;border-radius:50px;padding:3px 10px;display:inline-block;margin-bottom:0.5rem;}
+.gc-tag.active{color:#1de37a;background:rgba(29,227,122,0.1);}
+.gc-tag.soon{color:var(--yellow);background:rgba(255,209,0,0.1);}
+.gc-body h3{font-size:1.05rem;font-weight:900;margin-bottom:0.35rem;}
+.gc-body p{font-size:0.78rem;color:rgba(255,255,255,0.45);line-height:1.5;}
+.gc-foot{padding:0.8rem 1.1rem;border-top:1px solid var(--card-border);display:flex;align-items:center;justify-content:space-between;}
+.gc-foot span{font-size:0.72rem;color:var(--gray);}
+.play-btn{background:var(--yellow);color:var(--dark);border:none;border-radius:50px;padding:6px 16px;font-size:0.78rem;font-weight:900;cursor:pointer;font-family:'Nunito',sans-serif;text-transform:uppercase;letter-spacing:1px;transition:all 0.15s;}
+.play-btn:hover{background:var(--yellow-light);transform:scale(1.05);}
+#gameModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.94);z-index:999;overflow-y:auto;}
+.gm-inner{max-width:880px;margin:2rem auto;padding:1rem;position:relative;}
+.gm-close{position:fixed;top:1rem;right:1rem;background:var(--yellow);color:var(--dark);border:none;border-radius:50%;width:44px;height:44px;font-size:1.3rem;cursor:pointer;z-index:1000;font-family:'Nunito',sans-serif;font-weight:900;}
+.ann-list{display:flex;flex-direction:column;gap:1rem;}
+.ann-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:1.2rem 1.5rem;display:flex;gap:1.2rem;align-items:flex-start;transition:border-color 0.2s;}
+.ann-card:hover{border-color:rgba(255,209,0,0.3);}
+.ann-dot{width:10px;height:10px;border-radius:50%;margin-top:6px;flex-shrink:0;}
+.ann-dot.y{background:var(--yellow);box-shadow:0 0 8px rgba(255,209,0,0.7);}
+.ann-dot.b{background:var(--blue-light);box-shadow:0 0 8px rgba(0,71,187,0.7);}
+.ann-card h4{font-size:0.95rem;font-weight:800;margin-bottom:0.3rem;}
+.ann-card p{font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.5;}
+.ann-date{font-size:0.7rem;color:var(--gray);margin-top:0.4rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+.cal-wrap{background:var(--card-bg);border:1px solid var(--card-border);border-radius:20px;overflow:hidden;}
+.cal-header{background:linear-gradient(135deg,var(--blue),var(--blue-mid));padding:1.2rem 1.5rem;display:flex;align-items:center;justify-content:space-between;}
+.cal-header h3{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:2px;color:var(--yellow);}
+.cal-nav{display:flex;gap:0.5rem;}
+.cal-nav-btn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.2);color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:1rem;transition:background 0.2s;font-family:'Nunito',sans-serif;}
+.cal-nav-btn:hover{background:rgba(255,209,0,0.3);}
+.cal-days-header{display:grid;grid-template-columns:repeat(7,1fr);background:rgba(0,0,0,0.2);}
+.cal-day-name{text-align:center;padding:0.6rem;font-size:0.7rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--yellow);}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:rgba(255,255,255,0.05);}
+.cal-cell{background:var(--card-bg);min-height:75px;padding:0.5rem;transition:background 0.15s;cursor:pointer;}
+.cal-cell:hover{background:var(--dark3);}
+.cal-cell.empty{background:rgba(0,0,0,0.2);cursor:default;}
+.cal-cell.today{background:rgba(255,209,0,0.08);border:1px solid rgba(255,209,0,0.3);}
+.cal-date{font-size:0.8rem;font-weight:800;margin-bottom:3px;}
+.cal-cell.today .cal-date{color:var(--yellow);}
+.cal-event{font-size:0.65rem;font-weight:700;border-radius:4px;padding:2px 4px;margin-bottom:2px;line-height:1.3;}
+.cal-event.test{background:rgba(220,53,69,0.25);color:#ff8c96;}
+.cal-event.hw{background:rgba(255,209,0,0.15);color:var(--yellow);}
+.cal-event.game{background:rgba(0,71,187,0.3);color:#6fa3ff;}
+.cal-event.holiday{background:rgba(29,227,122,0.15);color:#1de37a;}
+.cal-event.special{background:rgba(139,92,246,0.2);color:#b48eff;}
+.cal-legend{padding:1rem 1.5rem;display:flex;gap:1rem;flex-wrap:wrap;border-top:1px solid var(--card-border);}
+.leg-item{display:flex;align-items:center;gap:6px;font-size:0.72rem;font-weight:700;color:var(--gray);}
+.leg-dot{width:10px;height:10px;border-radius:3px;}
+.hw-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem;}
+.hw-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:1.2rem;transition:all 0.2s;}
+.hw-card:hover{border-color:rgba(255,209,0,0.3);transform:translateY(-2px);}
+.hw-week{font-size:0.7rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--blue-light);margin-bottom:0.4rem;}
+.hw-card h4{font-size:0.95rem;font-weight:800;margin-bottom:0.4rem;}
+.hw-card p{font-size:0.78rem;color:rgba(255,255,255,0.45);line-height:1.5;margin-bottom:0.75rem;}
+.hw-due{font-size:0.72rem;font-weight:800;color:var(--dark);background:var(--yellow);border-radius:50px;padding:4px 12px;display:inline-block;}
+.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:1rem;}
+.res-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:1.4rem;text-align:center;transition:all 0.2s;cursor:pointer;}
+.res-card:hover{border-color:rgba(255,209,0,0.4);transform:translateY(-3px);background:var(--dark3);}
+.res-icon{font-size:2rem;margin-bottom:0.6rem;display:block;}
+.res-card h4{font-size:0.85rem;font-weight:800;margin-bottom:0.25rem;}
+.res-card p{font-size:0.72rem;color:rgba(255,255,255,0.4);}
+.enr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.2rem;}
+.enr-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:18px;overflow:hidden;transition:all 0.2s;}
+.enr-card:hover{transform:translateY(-4px);border-color:rgba(255,209,0,0.3);}
+.enr-top{padding:1.3rem;background:linear-gradient(135deg,rgba(255,209,0,0.1),rgba(0,71,187,0.1));border-bottom:1px solid var(--card-border);font-size:1.8rem;text-align:center;}
+.enr-body{padding:1rem;}
+.enr-body h4{font-size:0.9rem;font-weight:800;margin-bottom:0.35rem;color:var(--yellow);}
+.enr-body p{font-size:0.78rem;color:rgba(255,255,255,0.45);line-height:1.5;}
+.enr-stars{margin-top:0.6rem;display:flex;gap:3px;}
+.star-on{color:var(--yellow);font-size:0.8rem;}
+.star-off{color:rgba(255,255,255,0.12);font-size:0.8rem;}
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:2rem;}
+.contact-info{display:flex;flex-direction:column;gap:1rem;}
+.contact-card{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:1.3rem 1.5rem;display:flex;gap:1rem;align-items:center;transition:border-color 0.2s;}
+.contact-card:hover{border-color:rgba(255,209,0,0.3);}
+.contact-icon{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--blue),var(--blue-mid));display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;}
+.contact-detail h4{font-size:0.85rem;font-weight:800;color:var(--yellow);margin-bottom:0.2rem;}
+.contact-detail p{font-size:0.82rem;color:rgba(255,255,255,0.6);}
+.contact-detail a{color:rgba(255,255,255,0.6);text-decoration:none;}
+.contact-detail a:hover{color:var(--yellow);}
+.contact-hours{background:var(--card-bg);border:1px solid var(--card-border);border-radius:16px;padding:1.3rem 1.5rem;}
+.contact-hours h4{font-size:0.9rem;font-weight:800;color:var(--yellow);margin-bottom:0.85rem;}
+.hours-row{display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:0.82rem;}
+.hours-row:last-child{border-bottom:none;}
+.hours-row span:first-child{color:rgba(255,255,255,0.5);font-weight:600;}
+.hours-row span:last-child{color:var(--yellow);font-weight:700;}
+.msg-form{background:var(--card-bg);border:1px solid var(--card-border);border-radius:20px;padding:1.8rem;}
+.msg-form h3{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:2px;color:var(--yellow);margin-bottom:1.2rem;}
+.form-group{margin-bottom:1rem;}
+.form-group label{display:block;font-size:0.78rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--gray);margin-bottom:0.4rem;}
+.form-group input,.form-group select,.form-group textarea{width:100%;padding:0.75rem 1rem;border-radius:10px;background:rgba(255,255,255,0.05);border:1.5px solid rgba(255,255,255,0.1);color:var(--white);font-family:'Nunito',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--yellow);}
+.form-group textarea{resize:vertical;min-height:100px;}
+.form-group select option{background:var(--dark2);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.submit-btn{width:100%;padding:0.9rem;border-radius:12px;background:var(--yellow);color:var(--dark);border:none;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;cursor:pointer;text-transform:uppercase;letter-spacing:2px;transition:all 0.2s;margin-top:0.5rem;}
+.submit-btn:hover{background:var(--yellow-light);transform:translateY(-1px);}
+.submit-success{display:none;text-align:center;padding:1.5rem;}
+.submit-success .check{font-size:3rem;display:block;margin-bottom:0.5rem;}
+.submit-success h4{color:var(--yellow);font-size:1.1rem;margin-bottom:0.3rem;}
+.submit-success p{color:rgba(255,255,255,0.5);font-size:0.85rem;}
+footer{position:relative;z-index:1;background:var(--dark2);border-top:2px solid rgba(255,209,0,0.15);padding:3rem 2rem;text-align:center;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:3px;margin-bottom:0.3rem;}
+.footer-logo span{color:var(--yellow);}
+.footer-divider{width:60px;height:2px;background:var(--yellow);margin:1rem auto;border-radius:2px;}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--dark);}
+::-webkit-scrollbar-thumb{background:var(--blue-mid);border-radius:3px;}
+@media(max-width:768px){.nav-links,.nav-badge{display:none;}.contact-wrap{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}.section-wrap{padding:3rem 1.2rem;}}
+
+/* ===== SHARED GAME STYLES ===== */
+.gbase *{box-sizing:border-box;margin:0;padding:0;}
+.gbase{font-family:'Nunito',Arial,sans-serif;border-radius:18px;overflow:hidden;}
+.gscreen{display:none;}.gscreen.active{display:block;}
+.gcard{background:rgba(255,255,255,0.97);border-radius:16px;padding:1.4rem;max-width:800px;margin:0 auto;box-shadow:0 8px 32px rgba(0,0,0,0.4);}
+.gtitle{text-align:center;color:#fff;margin-bottom:1rem;}
+.gtitle h1{font-weight:900;text-transform:uppercase;letter-spacing:2px;font-size:1.9rem;}
+.gtitle p{font-size:0.83rem;color:rgba(255,255,255,0.8);margin-top:3px;}
+.gbb{font-size:2rem;display:block;text-align:center;margin-bottom:0.3rem;animation:gbnc 1s infinite alternate;}
+@keyframes gbnc{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+.gjoin{display:flex;flex-direction:column;gap:0.8rem;}
+.gjoin input,.gjoin select{padding:0.65rem 0.9rem;border-radius:10px;border:2px solid #ddd;font-size:0.95rem;outline:none;width:100%;font-family:'Nunito',Arial,sans-serif;}
+.gjoin input:focus,.gjoin select:focus{border-color:#003087;}
+.gbtn{padding:0.7rem 1.4rem;border-radius:12px;border:none;font-size:0.88rem;font-weight:800;cursor:pointer;text-transform:uppercase;letter-spacing:1px;font-family:'Nunito',Arial,sans-serif;transition:all 0.15s;}
+.gbtn:active{transform:scale(0.96);}
+.gbp{background:#003087;color:#fff;}.gbp:hover{background:#0047BB;}
+.gby{background:#FFD100;color:#0D0D0D;}.gbg{background:transparent;color:#003087;border:2px solid #003087;}
+.gteams{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.8rem;}
+.gtcard{border-radius:14px;padding:0.7rem;text-align:center;border:3px solid transparent;}
+.gta{background:#fff0ee;border-color:#C1440E;}.gtb{background:#eef3ff;border-color:#003087;}
+.gtcard h3{font-size:0.9rem;font-weight:800;margin-bottom:0.15rem;}
+.gta h3{color:#C1440E;}.gtb h3{color:#003087;}
+.gsc{font-size:2rem;font-weight:900;}
+.gta .gsc{color:#C1440E;}.gtb .gsc{color:#003087;}
+.gmbs{font-size:0.7rem;color:#666;margin-top:0.2rem;}
+.gqc{text-align:center;font-size:0.72rem;color:#888;margin-bottom:0.25rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+.gtr{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.5rem;}
+.gtl{font-size:0.75rem;font-weight:700;color:#888;white-space:nowrap;}
+.gtwp{flex:1;height:7px;background:#eee;border-radius:4px;overflow:hidden;}
+.gtbr{height:100%;border-radius:4px;background:#003087;transition:width 1s linear,background 0.4s;}
+.gtbr.urg{background:#dc3545;}
+.gqb{font-size:0.97rem;font-weight:700;color:#1a1a1a;background:#f0f4ff;border-radius:12px;padding:0.9rem;border-left:5px solid #003087;margin-bottom:0.9rem;line-height:1.5;}
+.gctx{font-size:0.82rem;background:#f8f8f8;border-radius:8px;padding:0.65rem;margin-bottom:0.7rem;color:#333;border:1px solid #e0e0e0;line-height:1.55;}
+.gcgd{display:grid;grid-template-columns:1fr 1fr;gap:0.55rem;margin-bottom:0.9rem;}
+.gcbt{padding:0.75rem 0.65rem;border-radius:12px;border:2.5px solid #e0e0e0;background:#fafafa;font-size:0.82rem;font-weight:700;cursor:pointer;text-align:left;color:#222;display:flex;align-items:center;gap:7px;font-family:'Nunito',Arial,sans-serif;transition:all 0.15s;}
+.gcbt:hover:not(:disabled){border-color:#003087;background:#eef3ff;}
+.gcbt.cor{background:#d4edda;border-color:#28a745;color:#155724;}
+.gcbt.wrg{background:#f8d7da;border-color:#dc3545;color:#721c24;}
+.gcbt:disabled{cursor:default;}
+.galb{display:inline-flex;align-items:center;justify-content:center;min-width:23px;height:23px;border-radius:50%;background:#003087;color:#fff;font-weight:900;font-size:0.72rem;flex-shrink:0;}
+.gcbt.cor .galb{background:#28a745;}.gcbt.wrg .galb{background:#dc3545;}
+.gbzr2{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin-bottom:0.7rem;}
+.gbzb{padding:0.85rem;border-radius:14px;border:none;font-size:0.9rem;font-weight:900;cursor:pointer;text-transform:uppercase;letter-spacing:1px;font-family:'Nunito',Arial,sans-serif;transition:all 0.1s;}
+.gbzb:active{transform:translateY(3px);}
+.bzr{background:#C1440E;color:#fff;box-shadow:0 5px 0 #8B2500;}
+.bzb{background:#003087;color:#fff;box-shadow:0 5px 0 #001a4d;}
+.gbzb:disabled{opacity:0.35;cursor:not-allowed;transform:none;box-shadow:none;}
+.gjdg{display:grid;grid-template-columns:1fr 1fr;gap:0.55rem;margin-bottom:0.7rem;}
+.gfbb{text-align:center;padding:0.55rem;border-radius:10px;font-size:0.9rem;font-weight:700;margin-bottom:0.7rem;display:none;}
+.gfbb.show{display:block;}.gfbb.cor{background:#d4edda;color:#155724;}.gfbb.wrg{background:#f8d7da;color:#721c24;}.gfbb.ntl{background:#fff3cd;color:#856404;}
+.gbzi{text-align:center;font-size:1.1rem;font-weight:900;padding:0.6rem;border-radius:12px;margin-bottom:0.65rem;animation:gpls 0.55s infinite alternate;display:none;}
+.gbzi.show{display:block;}.gbzi.ra{background:#fff0ee;color:#C1440E;}.gbzi.ba{background:#eef3ff;color:#003087;}
+@keyframes gpls{from{opacity:0.7;transform:scale(0.98)}to{opacity:1;transform:scale(1.02)}}
+.garv{margin-top:0.7rem;background:#f0f8e8;border-radius:10px;padding:0.65rem;font-size:0.82rem;border-left:4px solid #28a745;line-height:1.4;}
+.glby{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;margin:0.7rem 0;}
+.glt{border-radius:12px;padding:0.8rem;}
+.gltr{background:#fff0ee;border:2px solid #C1440E;}.gltb{background:#eef3ff;border:2px solid #003087;}
+.glt h4{font-weight:800;margin-bottom:0.35rem;font-size:0.9rem;}
+.gltr h4{color:#C1440E;}.gltb h4{color:#003087;}
+.gchp{display:inline-block;border-radius:20px;padding:2px 9px;margin:2px;font-size:0.73rem;font-weight:700;}
+.gchr{background:#fff0ee;color:#C1440E;border:1px solid #C1440E;}.gchb{background:#eef3ff;color:#003087;border:1px solid #003087;}
+.gmdr{display:flex;gap:0.55rem;margin:0.7rem 0;}
+.gmdb{flex:1;padding:0.55rem;border-radius:10px;border:2px solid #ddd;background:#fafafa;font-size:0.8rem;font-weight:700;cursor:pointer;text-align:center;color:#333;font-family:'Nunito',Arial,sans-serif;}
+.gmdb.sel{border-color:#003087;background:#eef3ff;color:#003087;}
+.gfng{display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin:1.1rem 0;}
+.gdts{display:flex;justify-content:center;gap:4px;margin-bottom:0.55rem;flex-wrap:wrap;}
+.gdt{width:8px;height:8px;border-radius:50%;background:#ddd;}
+.gdt.dn{background:#28a745;}.gdt.cr{background:#FFD100;}
+.gtpl{background:#001a4d;color:#fff;border-radius:12px;padding:0.8rem 1.1rem;margin-top:0.8rem;font-size:0.78rem;}
+.gtpl h4{color:#FFD100;margin-bottom:0.35rem;font-size:0.85rem;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <div class="nav-hornet">🐝</div>
+    <div>
+      <div class="nav-logo">Math <span>Playbook</span></div>
+      <div class="nav-sub">IDEA Academy · 5th Grade</div>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#games">Games</a></li>
+    <li><a href="#announcements">News</a></li>
+    <li><a href="#calendar">Calendar</a></li>
+    <li><a href="#homework">Homework</a></li>
+    <li><a href="#resources">Resources</a></li>
+    <li><a href="#enrichment">Enrichment</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-badge">🐝 Go Hornets!</div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">
+    <div class="hero-eyebrow-line"></div>
+    <span>IDEA Academy Hornets · 5th Grade Math</span>
+    <div class="hero-eyebrow-line"></div>
+  </div>
+  <h1 class="hero-title"><span class="l1">Math</span><span class="l2">Playbook</span></h1>
+  <div class="hero-tag">Where numbers meet the hive 🐝 <strong>Learn · Play · Win</strong></div>
+  <div class="hero-btns">
+    <a href="#games" class="btn-h btn-h-y">🎮 Play a Game</a>
+    <a href="#homework" class="btn-h btn-h-o">📚 This Week's HW</a>
+    <a href="#contact" class="btn-h btn-h-o">📧 Contact Teacher</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-n">4</div><div class="stat-l">Games</div></div>
+    <div class="stat"><div class="stat-n">60+</div><div class="stat-l">Questions</div></div>
+    <div class="stat"><div class="stat-n">5th</div><div class="stat-l">Grade</div></div>
+    <div class="stat"><div class="stat-n">🐝</div><div class="stat-l">Hornets</div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- GAMES -->
+<div class="section-wrap" id="games">
+  <div class="s-eyebrow">🎮 Game Zone</div>
+  <div class="s-title">Play & <span>Review</span></div>
+  <div class="games-grid">
+    <div class="game-card">
+      <div class="gc-top blue-g">🏀</div>
+      <div class="gc-body"><span class="gc-tag active">● Live</span><h3>5.4F Hoops Quiz</h3><p>Order of operations & numerical expressions — buzzer battle!</p></div>
+      <div class="gc-foot"><span>15 Qs · 30s</span><button class="play-btn" onclick="openGame(0)">▶ Play</button></div>
+    </div>
+    <div class="game-card">
+      <div class="gc-top yellow-g">✖️</div>
+      <div class="gc-body"><span class="gc-tag active">● Live</span><h3>Multiplication Madness</h3><p>Multiplying decimals & fractions with unlike denominators — STAAR style!</p></div>
+      <div class="gc-foot"><span>12 Qs · 30s</span><button class="play-btn" onclick="openGame(1)">▶ Play</button></div>
+    </div>
+    <div class="game-card">
+      <div class="gc-top teal-g">➕</div>
+      <div class="gc-body"><span class="gc-tag active">● Live</span><h3>Fraction Frenzy</h3><p>Word problems — adding & subtracting fractions with unlike denominators!</p></div>
+      <div class="gc-foot"><span>12 Qs · 30s</span><button class="play-btn" onclick="openGame(2)">▶ Play</button></div>
+    </div>
+    <div class="game-card">
+      <div class="gc-top purple-g">📐</div>
+      <div class="gc-body"><span class="gc-tag active">● Live</span><h3>Geometry Slam</h3><p>Triangles, quadrilaterals & their characteristics — shape showdown!</p></div>
+      <div class="gc-foot"><span>12 Qs · 30s</span><button class="play-btn" onclick="openGame(3)">▶ Play</button></div>
+    </div>
+  </div>
+</div>
+
+<div id="gameModal">
+  <div class="gm-inner">
+    <button class="gm-close" onclick="closeGame()">✕</button>
+    <div id="gameContainer"></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ANNOUNCEMENTS -->
+<div class="section-wrap" id="announcements">
+  <div class="s-eyebrow">📢 Latest News</div>
+  <div class="s-title">Class <span>Announcements</span></div>
+  <div class="ann-list">
+    <div class="ann-card"><div class="ann-dot y"></div><div><h4>🎮 All 4 Games Are LIVE!</h4><p>The Math Playbook Arcade is open! Play Hoops Quiz, Multiplication Madness, Fraction Frenzy, and Geometry Slam. Go Hornets! 🐝</p><div class="ann-date">This Week</div></div></div>
+    <div class="ann-card"><div class="ann-dot b"></div><div><h4>📝 STAAR Practice Continues</h4><p>Keep using the games to prepare for STAAR. Each game is built with real 5th grade STAAR-aligned questions!</p><div class="ann-date">Ongoing</div></div></div>
+    <div class="ann-card"><div class="ann-dot y"></div><div><h4>📅 Parent-Teacher Conferences</h4><p>Conferences coming up! Use the contact form below to schedule a time or ask questions about your student's progress.</p><div class="ann-date">See Calendar</div></div></div>
+    <div class="ann-card"><div class="ann-dot b"></div><div><h4>🌐 Welcome to Math Playbook!</h4><p>Your home base for 5th grade math at IDEA Academy. Games, homework, resources, calendar, and parent contact — all right here!</p><div class="ann-date">Welcome</div></div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- CALENDAR -->
+<div class="section-wrap" id="calendar">
+  <div class="s-eyebrow">📅 Schedule</div>
+  <div class="s-title">Class <span>Calendar</span></div>
+  <div class="cal-wrap">
+    <div class="cal-header"><h3 id="calMonthYear">April 2026</h3><div class="cal-nav"><button class="cal-nav-btn" onclick="changeMonth(-1)">‹</button><button class="cal-nav-btn" onclick="changeMonth(1)">›</button></div></div>
+    <div class="cal-days-header"><div class="cal-day-name">Sun</div><div class="cal-day-name">Mon</div><div class="cal-day-name">Tue</div><div class="cal-day-name">Wed</div><div class="cal-day-name">Thu</div><div class="cal-day-name">Fri</div><div class="cal-day-name">Sat</div></div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div class="cal-legend">
+      <div class="leg-item"><div class="leg-dot" style="background:rgba(220,53,69,0.5)"></div>Test/Quiz</div>
+      <div class="leg-item"><div class="leg-dot" style="background:rgba(255,209,0,0.4)"></div>HW Due</div>
+      <div class="leg-item"><div class="leg-dot" style="background:rgba(0,71,187,0.5)"></div>Game Day</div>
+      <div class="leg-item"><div class="leg-dot" style="background:rgba(29,227,122,0.3)"></div>No School</div>
+      <div class="leg-item"><div class="leg-dot" style="background:rgba(139,92,246,0.4)"></div>Special Event</div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- HOMEWORK -->
+<div class="section-wrap" id="homework">
+  <div class="s-eyebrow">📚 Assignments</div>
+  <div class="s-title">This Week's <span>Homework</span></div>
+  <div class="hw-grid">
+    <div class="hw-card"><div class="hw-week">Monday</div><h4>Multiplying Decimals Practice</h4><p>Complete pages 52–53 in your math workbook. Show all steps clearly.</p><span class="hw-due">Due Tuesday</span></div>
+    <div class="hw-card"><div class="hw-week">Tuesday</div><h4>Fraction Multiplication</h4><p>Multiply fractions with unlike denominators worksheet. Simplify all answers.</p><span class="hw-due">Due Wednesday</span></div>
+    <div class="hw-card"><div class="hw-week">Wednesday</div><h4>Fraction Word Problems</h4><p>Adding & subtracting fractions with unlike denominators — word problem sheet.</p><span class="hw-due">Due Thursday</span></div>
+    <div class="hw-card"><div class="hw-week">Friday</div><h4>STAAR Game Challenge!</h4><p>Play each game at least once and write down 2 things you learned. Go Hornets! 🐝</p><span class="hw-due">Due Monday</span></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- RESOURCES -->
+<div class="section-wrap" id="resources">
+  <div class="s-eyebrow">📖 Study Tools</div>
+  <div class="s-title">Study <span>Resources</span></div>
+  <div class="res-grid">
+    <div class="res-card"><span class="res-icon">📋</span><h4>PEMDAS Anchor Chart</h4><p>Order of operations reference</p></div>
+    <div class="res-card"><span class="res-icon">🔢</span><h4>Multiplying Decimals Guide</h4><p>Step-by-step strategies</p></div>
+    <div class="res-card"><span class="res-icon">➗</span><h4>Fraction Rules Chart</h4><p>Adding, subtracting, multiplying</p></div>
+    <div class="res-card"><span class="res-icon">📐</span><h4>Geometry Reference Sheet</h4><p>Triangle & quadrilateral facts</p></div>
+    <div class="res-card"><span class="res-icon">📹</span><h4>Tutorial Videos</h4><p>Step-by-step walkthroughs</p></div>
+    <div class="res-card"><span class="res-icon">🏆</span><h4>STAAR Prep</h4><p>Released test questions</p></div>
+    <div class="res-card"><span class="res-icon">🐝</span><h4>Hornet Honor Roll</h4><p>Top scorers this week</p></div>
+    <div class="res-card"><span class="res-icon">📊</span><h4>Progress Tracker</h4><p>Track your own growth</p></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ENRICHMENT -->
+<div class="section-wrap" id="enrichment">
+  <div class="s-eyebrow">⭐ Go Further</div>
+  <div class="s-title">Enrichment <span>Activities</span></div>
+  <div class="enr-grid">
+    <div class="enr-card"><div class="enr-top">🧩</div><div class="enr-body"><h4>Decimal Puzzles</h4><p>Use decimal multiplication in creative logic puzzles that challenge your thinking.</p><div class="enr-stars"><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span><span class="star-off">★</span><span class="star-off">★</span></div></div></div>
+    <div class="enr-card"><div class="enr-top">🔢</div><div class="enr-body"><h4>Fraction Scavenger Hunt</h4><p>Find real-world examples of fractions in cooking recipes and measurement.</p><div class="enr-stars"><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span><span class="star-off">★</span></div></div></div>
+    <div class="enr-card"><div class="enr-top">📐</div><div class="enr-body"><h4>Shape Architecture</h4><p>Design a building using only triangles and quadrilaterals. Label every shape!</p><div class="enr-stars"><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span></div></div></div>
+    <div class="enr-card"><div class="enr-top">🏀</div><div class="enr-body"><h4>Sports Stats Math</h4><p>Use real basketball stats with decimals and fractions. Math meets the court!</p><div class="enr-stars"><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span><span class="star-on">★</span><span class="star-off">★</span></div></div></div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- PARENT CONTACT -->
+<div class="section-wrap" id="contact">
+  <div class="s-eyebrow">📧 Get In Touch</div>
+  <div class="s-title">Parent <span>Contact</span></div>
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <div class="contact-card"><div class="contact-icon">📧</div><div class="contact-detail"><h4>Email</h4><p><a href="mailto:teacher@ideaacademy.org">teacher@ideaacademy.org</a></p></div></div>
+      <div class="contact-card"><div class="contact-icon">📞</div><div class="contact-detail"><h4>Phone / Remind App</h4><p>Messages via Remind App preferred.<br>School: (555) 000-0000</p></div></div>
+      <div class="contact-card"><div class="contact-icon">🏫</div><div class="contact-detail"><h4>School</h4><p>IDEA Academy Hornets<br>5th Grade Math · Room ___</p></div></div>
+      <div class="contact-card"><div class="contact-icon">🐝</div><div class="contact-detail"><h4>Class Dojo / Parent Portal</h4><p>Check Class Dojo for daily updates and student behavior points!</p></div></div>
+      <div class="contact-hours">
+        <h4>⏰ Best Times to Reach Me</h4>
+        <div class="hours-row"><span>Monday – Friday</span><span>7:30 – 8:00 AM</span></div>
+        <div class="hours-row"><span>Monday – Friday</span><span>3:45 – 4:30 PM</span></div>
+        <div class="hours-row"><span>Email Response</span><span>Within 24 hours</span></div>
+        <div class="hours-row"><span>Remind Messages</span><span>Same day (school hrs)</span></div>
+      </div>
+    </div>
+    <div class="msg-form" id="contactForm">
+      <h3>📬 Send a Message</h3>
+      <div class="form-row">
+        <div class="form-group"><label>Parent Name</label><input type="text" placeholder="Your full name"/></div>
+        <div class="form-group"><label>Student Name</label><input type="text" placeholder="Student's name"/></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com"/></div>
+      <div class="form-group"><label>Best way to reach you</label><select><option>Email</option><option>Phone call</option><option>Remind App</option><option>Class Dojo</option></select></div>
+      <div class="form-group"><label>Reason for Contact</label><select><option>General question</option><option>Schedule a conference</option><option>Academic concern</option><option>Homework help</option><option>Behavior concern</option><option>Positive feedback 🌟</option></select></div>
+      <div class="form-group"><label>Message</label><textarea placeholder="Type your message here..."></textarea></div>
+      <button class="submit-btn" onclick="submitForm()">🐝 Send Message</button>
+      <div class="submit-success" id="submitSuccess"><span class="check">✅</span><h4>Message Sent!</h4><p>Thank you! I'll get back to you within 24 hours. Go Hornets! 🐝</p></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div style="font-size:2.5rem;margin-bottom:0.5rem">🐝</div>
+  <div class="footer-logo">Math <span>Playbook</span></div>
+  <div class="footer-divider"></div>
+  <p>IDEA Academy Hornets · 5th Grade Math</p>
+  <p style="margin-top:0.4rem">Where numbers meet the hive 🐝</p>
+  <p style="margin-top:1rem;font-size:0.72rem;color:#3a4a5a">Update with your name, email, and room number!</p>
+</footer>
+
+<script>
+// ===== CALENDAR =====
+const EVENTS={'2026-04-08':[{type:'game',label:'🎮 Game Day'}],'2026-04-10':[{type:'hw',label:'📝 HW Due'}],'2026-04-13':[{type:'hw',label:'📝 Fractions HW'}],'2026-04-15':[{type:'test',label:'📋 5.4F Test'}],'2026-04-17':[{type:'holiday',label:'🌟 No School'}],'2026-04-20':[{type:'game',label:'🎮 Madness Game'}],'2026-04-22':[{type:'special',label:'🐝 Hornet Day'}],'2026-04-24':[{type:'hw',label:'📝 HW Due'}],'2026-04-27':[{type:'test',label:'📋 Fractions Quiz'}],'2026-04-29':[{type:'special',label:'👨‍👩‍👧 Parent Conf.'}],'2026-05-06':[{type:'test',label:'📋 Unit Test'}],'2026-05-08':[{type:'game',label:'🎮 Review Game'}]};
+let calYear=2026,calMonth=3;
+const MN=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function renderCalendar(){
+  const y=calYear,m=calMonth;
+  document.getElementById('calMonthYear').textContent=MN[m]+' '+y;
+  const firstDay=new Date(y,m,1).getDay(),dim=new Date(y,m+1,0).getDate(),today=new Date();
+  const grid=document.getElementById('calGrid');grid.innerHTML='';
+  for(let i=0;i<firstDay;i++){const c=document.createElement('div');c.className='cal-cell empty';grid.appendChild(c);}
+  for(let d=1;d<=dim;d++){
+    const c=document.createElement('div'),ds=y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    const isT=today.getFullYear()===y&&today.getMonth()===m&&today.getDate()===d;
+    c.className='cal-cell'+(isT?' today':'');
+    let h=`<div class="cal-date">${d}</div>`;
+    if(EVENTS[ds])EVENTS[ds].forEach(ev=>{h+=`<div class="cal-event ${ev.type}">${ev.label}</div>`;});
+    c.innerHTML=h;grid.appendChild(c);
+  }
+}
+function changeMonth(d){calMonth+=d;if(calMonth>11){calMonth=0;calYear++;}if(calMonth<0){calMonth=11;calYear--;}renderCalendar();}
+renderCalendar();
+
+// ===== CONTACT FORM =====
+function submitForm(){
+  document.querySelectorAll('#contactForm .form-group').forEach(g=>g.style.display='none');
+  document.querySelector('#contactForm .submit-btn').style.display='none';
+  document.querySelector('#contactForm h3').style.display='none';
+  document.getElementById('submitSuccess').style.display='block';
+}
+
+// ===== GAME DATA =====
+const GAME_DATA = [
+// GAME 0: 5.4F Hoops Quiz
+{
+  title:'🏀 Hoops Quiz', sub:'5.4F · Order of Operations',
+  icon:'🏀', bg:'linear-gradient(135deg,#003087,#0047BB)',
+  shadow:'0 5px 0 #001a4d', teamA:'Hornets A', teamB:'Hornets B',
+  qs:[
+    {ctx:"Expression: [(4×2.75)+2(3.20−0.75)+3.95]−6.00",q:"What amount did Laisha pay for the items?",c:["$13.85","$8.95","$14.40","$12.15"],a:0},
+    {ctx:"60÷6[(1×2)+(4×2)] → Step1: 60÷6[2+8] → Step2: 60÷12+8 → Step3: 5+8=13",q:"In which step does the error FIRST appear?",c:["Step 1 — 2+4 first","Step 2 — 2+8 before ×6","Step 3 — 12+8 before ÷","Step 1 — 60÷6 first"],a:1},
+    {ctx:"Mr. Silva: 2@$5.85 + 3@$4.20 − $3 + $9.60 − $1.50",q:"What did Mr. Silva spend at the theater?",c:["$23.40","$15.15","$25.70","$29.40"],a:0},
+    {ctx:"Adult pass=$8.25, Child pass=$5.75",q:"Which equation finds p for 2 adult + 3 child passes?",c:["2(8.25)+3(5.75)=p","3(8.25)+2(5.75)=p","(8.25+8.25)×3(5.75)=p","(8.25×3)+(5.75×2)=p"],a:0},
+    {ctx:"",q:"Which expression does NOT equal 54?",c:["6×(14−5)","(20−2)×3","4+(10×5)","(40÷5)×7"],a:2},
+    {ctx:"Expression: 45÷(5+4)×3+7",q:"Which operation is performed FIRST?",c:["45÷5, left to right","5+4, parentheses first","4×3, multiplication first","3+7, right to left"],a:1},
+    {ctx:"6 cans × 3 balls, tossed 5, took 2. 11 remain.",q:"Which expression shows 11 balls remain?",c:["6×3−5+2","6(3)−5(2)","6×3−(5+2)","6+3−5+2"],a:2},
+    {ctx:"[4(4.95−0.75)+(2×15.60)+9.30]÷3",q:"What is each man's share of the bakery cost?",c:["$19.10","$18.45","$22.15","$17.20"],a:0},
+    {ctx:"51 apples + 10 baskets×18 − 6 each ÷ 9 boxes = 19",q:"Which expression shows 19 apples per box?",c:["51+[10(18−6)]÷9","[51+10(18−6)]÷9","51+[10(18−6)÷9]","[51+(10×18)−6]÷9"],a:1},
+    {ctx:"Marcel needs $195. Tue: 3 yards@$15, Wed: 4 yards@$20, spent $19",q:"Which equation shows amount a Marcel still needs?",c:["a=195−(15×3)−(20×4)−19","a=195−(15+3)−(20+4)−19","a=195−(15×3)−(20×4)+19","a=195−(15×3)+(20×4)+19"],a:0},
+    {ctx:"(8×15.75)−11.50",q:"How much did Mrs. Saenz pay for 8 garden tools?",c:["$114.50","$126.00","$115.50","$34.00"],a:0},
+    {ctx:"$252 total, 2 adult@$50, 4 kids: t=[252−(2×50)]÷4",q:"Cost per child's ticket?",c:["$54","$38","$152","Not here"],a:1},
+    {ctx:"60 boards: 12/hr×2hrs, 5/hr×6hrs, 31 returned",q:"Equation for s, boards at end of day?",c:["s=60−(12+2)−(5+6)−31","s=60−(12×2)−(5×6)−31","s=60−(12+2)−(5+6)+31","s=60−(12×2)−(5×6)+31"],a:3},
+    {ctx:"Caterer: (23×8)+(19×4) oz of beef",q:"Which could be the beef amount served?",c:["23oz to 19 adults, 8oz to 4 kids","23oz among 8 adults, 19oz among 4 kids","8oz to 23 adults, 4oz to 19 kids","23oz to 4 adults, 8oz to 19 kids"],a:1},
+    {ctx:"Museum: adult=$4.95, child=$3.20",q:"Which equation CANNOT find c, difference between 2 adult and 3 child tickets?",c:["(4.95−3.20)×3=c","(4.95+4.95)−(3.30+3.30+3.20)=c","(4.95×2)−(3.20×3)=c","2(4.95)−3(3.20)=c"],a:1}
+  ]
+},
+// GAME 1: MULTIPLICATION MADNESS
+{
+  title:'✖️ Multiplication Madness', sub:'Decimals & Fractions with Unlike Denominators',
+  icon:'✖️', bg:'linear-gradient(135deg,#8B6000,#C9A800)',
+  shadow:'0 5px 0 #5a3e00', teamA:'Hornets A', teamB:'Hornets B',
+  qs:[
+    {ctx:"",q:"What is 3.4 × 2.5?",c:["8.5","7.5","85","0.85"],a:0},
+    {ctx:"",q:"What is 0.6 × 0.7?",c:["4.2","0.042","0.42","42"],a:2},
+    {ctx:"A garden is 4.5 meters long and 2.3 meters wide.",q:"What is the area of the garden?",c:["10.35 sq m","9.35 sq m","6.8 sq m","10.53 sq m"],a:0},
+    {ctx:"",q:"What is 1/3 × 2/5?",c:["3/8","2/15","2/8","3/15"],a:1},
+    {ctx:"",q:"What is 3/4 × 2/3?",c:["6/12","5/7","1/2","6/7"],a:2},
+    {ctx:"Maria ran 2/3 of a mile each day for 5 days.",q:"How many miles did Maria run in all?",c:["10/3 miles","7/3 miles","10/15 miles","2/15 miles"],a:0},
+    {ctx:"",q:"What is 12.6 × 0.5?",c:["63","6.3","0.63","126"],a:1},
+    {ctx:"",q:"What is 2/5 × 3/4?",c:["5/9","6/9","3/10","6/20"],a:3},
+    {ctx:"A recipe needs 2/3 cup of sugar. Jaden is making 3/4 of the recipe.",q:"How much sugar does Jaden need?",c:["1/2 cup","5/7 cup","6/7 cup","1/4 cup"],a:0},
+    {ctx:"",q:"What is 0.08 × 0.04?",c:["0.32","0.032","0.0032","3.2"],a:2},
+    {ctx:"A piece of ribbon is 5.4 meters. Maria uses 0.3 of it for a project.",q:"How many meters of ribbon does Maria use?",c:["1.62 m","16.2 m","0.162 m","1.8 m"],a:0},
+    {ctx:"",q:"Which shows the product of 3/8 × 4/9 in simplest form?",c:["12/72","1/6","7/17","2/6"],a:1}
+  ]
+},
+// GAME 2: FRACTION FRENZY
+{
+  title:'➕ Fraction Frenzy', sub:'Adding & Subtracting Fractions — Word Problems',
+  icon:'➕', bg:'linear-gradient(135deg,#0A5F6E,#0FA8BF)',
+  shadow:'0 5px 0 #063d48', teamA:'Hornets A', teamB:'Hornets B',
+  qs:[
+    {ctx:"Jaylen ate 1/4 of a pizza and his sister ate 1/3 of the same pizza.",q:"How much pizza did they eat altogether?",c:["2/7","7/12","2/12","5/12"],a:1},
+    {ctx:"A rope is 3/4 of a yard long. Marcus cuts off 1/6 of a yard.",q:"How much rope is left?",c:["2/3","7/12","8/10","1/2"],a:1},
+    {ctx:"Keisha walked 2/3 of a mile in the morning and 3/5 of a mile in the afternoon.",q:"How far did Keisha walk in all?",c:["5/8 mi","19/15 mi","5/15 mi","1/4 mi"],a:1},
+    {ctx:"A tank was 5/6 full. After watering plants, it was 1/4 full.",q:"What fraction of the tank was used?",c:["4/2","4/6","7/12","4/3"],a:2},
+    {ctx:"Carlos spent 1/2 hour on math homework and 2/5 hour on reading.",q:"How much total time did Carlos spend on homework?",c:["3/7 hr","9/10 hr","3/10 hr","7/10 hr"],a:1},
+    {ctx:"A container holds 7/8 of a gallon of juice. The class drinks 1/3 of a gallon.",q:"How much juice remains?",c:["6/5 gal","13/24 gal","6/8 gal","1/2 gal"],a:1},
+    {ctx:"Emma finished 3/5 of her book on Saturday and 1/4 on Sunday.",q:"What fraction of the book has Emma read?",c:["4/9","17/20","4/20","13/20"],a:1},
+    {ctx:"A garden is 2/3 planted with flowers and 1/4 planted with vegetables.",q:"What fraction of the garden is planted altogether?",c:["3/7","11/12","3/12","9/12"],a:1},
+    {ctx:"A recipe calls for 3/4 cup of flour. Rosa already added 1/3 cup.",q:"How much more flour does Rosa need to add?",c:["2/1","5/12","4/7","2/7"],a:1},
+    {ctx:"Tyler jogged 5/6 of a mile. He stopped to rest after 2/9 of a mile.",q:"How much farther does Tyler still need to jog?",c:["3/3","11/18","7/15","13/18"],a:3},
+    {ctx:"A bucket was 4/5 full of water. After filling flower pots, 3/10 of the bucket was used.",q:"What fraction of the bucket is left?",c:["1/2","7/15","1/10","7/10"],a:0},
+    {ctx:"Mia practiced piano for 5/8 of an hour. Her brother practiced for 1/3 of an hour.",q:"How much longer did Mia practice than her brother?",c:["4/5","7/24","3/5","7/11"],a:1}
+  ]
+},
+// GAME 3: GEOMETRY SLAM
+{
+  title:'📐 Geometry Slam', sub:'Triangles & Quadrilaterals — Characteristics',
+  icon:'📐', bg:'linear-gradient(135deg,#3B1F7A,#6B3FBF)',
+  shadow:'0 5px 0 #200f4a', teamA:'Hornets A', teamB:'Hornets B',
+  qs:[
+    {ctx:"",q:"Which triangle has ALL three sides equal in length?",c:["Scalene","Isosceles","Equilateral","Right"],a:2},
+    {ctx:"",q:"A triangle has one angle that measures exactly 90°. What type of triangle is it?",c:["Obtuse","Acute","Equilateral","Right"],a:3},
+    {ctx:"",q:"Which quadrilateral has exactly ONE pair of parallel sides?",c:["Rectangle","Parallelogram","Trapezoid","Rhombus"],a:2},
+    {ctx:"",q:"A parallelogram has 4 right angles and all sides are equal. What is it?",c:["Rectangle","Trapezoid","Rhombus","Square"],a:3},
+    {ctx:"",q:"Which of these is TRUE about ALL rectangles?",c:["All sides are equal","It has exactly 2 right angles","Opposite sides are equal and parallel","It is also a rhombus"],a:2},
+    {ctx:"A triangle has sides measuring 3 cm, 4 cm, and 5 cm.",q:"What type of triangle is this based on its sides?",c:["Equilateral","Isosceles","Scalene","Right"],a:2},
+    {ctx:"",q:"Which quadrilateral has 4 equal sides but angles that are NOT necessarily 90°?",c:["Square","Rectangle","Rhombus","Parallelogram"],a:2},
+    {ctx:"",q:"An acute triangle has...",c:["One angle greater than 90°","All angles less than 90°","One angle equal to 90°","Two equal sides"],a:1},
+    {ctx:"",q:"Which statement is TRUE about a rhombus?",c:["All angles are 90°","It has only one pair of parallel sides","All four sides are equal in length","It has no right angles"],a:2},
+    {ctx:"",q:"A triangle has angles measuring 40°, 60°, and 80°. What type is it?",c:["Right","Obtuse","Acute","Equilateral"],a:2},
+    {ctx:"",q:"Which quadrilateral has TWO pairs of parallel sides and ALL right angles?",c:["Trapezoid","Rhombus","Rectangle","Kite"],a:2},
+    {ctx:"",q:"An isosceles triangle ALWAYS has...",c:["Three equal sides","Three equal angles","At least two equal sides","One right angle"],a:2}
+  ]
+}];
+
+// ===== GAME ENGINE =====
+let currentGameIdx = 0;
+function openGame(idx){
+  currentGameIdx = idx;
+  document.getElementById('gameModal').style.display='block';
+  document.body.style.overflow='hidden';
+  document.getElementById('gameContainer').innerHTML = buildGame(idx);
+  initGame(idx);
+}
+function closeGame(){
+  document.getElementById('gameModal').style.display='none';
+  document.body.style.overflow='';
+  document.getElementById('gameContainer').innerHTML='';
+}
+
+function buildGame(idx){
+  const g = GAME_DATA[idx];
+  const id = 'g'+idx;
+  return `<div class="gbase" id="${id}">
+  <div style="background:${g.bg};padding:1rem;border-radius:18px 18px 0 0;position:relative;overflow:hidden;">
+    <div style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:0.07;">
+      <svg viewBox="0 0 400 200" preserveAspectRatio="none" style="width:100%;height:100%">
+        <circle cx="200" cy="100" r="50" stroke="white" stroke-width="1" fill="none"/>
+        <line x1="200" y1="0" x2="200" y2="200" stroke="white" stroke-width="1"/>
+        <rect x="10" y="40" width="70" height="120" stroke="white" stroke-width="1" fill="none"/>
+        <rect x="320" y="40" width="70" height="120" stroke="white" stroke-width="1" fill="none"/>
+      </svg>
+    </div>
+    <div class="gtitle">
+      <div class="gbb">${g.icon}</div>
+      <h1>${g.title}</h1>
+      <p>${g.sub}</p>
+    </div>
+  </div>
+  <div id="${id}-screens" style="background:#f5f7ff;border-radius:0 0 18px 18px;padding:1rem;">
+    <div id="${id}-join" class="gscreen active">
+      <div class="gcard">
+        <h2 style="font-size:1.15rem;font-weight:800;color:#1a1a1a;margin-bottom:1rem;">🏆 Join the Game</h2>
+        <div class="gjoin">
+          <input type="text" id="${id}-name" placeholder="Enter your name" maxlength="20"/>
+          <select id="${id}-team"><option value="">Choose your team...</option><option value="a">🔴 ${g.teamA}</option><option value="b">🔵 ${g.teamB}</option></select>
+          <button class="gbtn gbp" onclick="gJoin('${id}')">Join Team 🐝</button>
+        </div>
+        <div class="gtpl"><h4>👩‍🏫 Teacher Controls</h4><p style="color:#aac;margin-bottom:0.5rem">Students join, then start.</p><button class="gbtn gby" onclick="gLobby('${id}')" style="font-size:0.78rem;padding:0.4rem 0.9rem;">View Lobby & Start →</button></div>
+      </div>
+    </div>
+    <div id="${id}-lobby" class="gscreen">
+      <div class="gcard">
+        <h2 style="font-size:1.15rem;font-weight:800;color:#1a1a1a;margin-bottom:1rem;">🏟️ Lobby</h2>
+        <div class="glby"><div class="glt gltr"><h4>🔴 ${g.teamA}</h4><div id="${id}-la"></div></div><div class="glt gltb"><h4>🔵 ${g.teamB}</h4><div id="${id}-lb"></div></div></div>
+        <p style="font-size:0.82rem;font-weight:700;color:#555;margin-bottom:0.4rem">Mode:</p>
+        <div class="gmdr"><div class="gmdb sel" id="${id}-mb" onclick="gMode('${id}','buzzer')">🔔 Buzzer</div><div class="gmdb" id="${id}-mc" onclick="gMode('${id}','choices')">✅ Multiple Choice</div></div>
+        <div style="display:flex;gap:0.6rem;margin-top:0.8rem"><button class="gbtn gbg" onclick="gShowS('${id}','join')">← Back</button><button class="gbtn gbp" onclick="gStart('${id}')" style="flex:1">🐝 Start!</button></div>
+      </div>
+    </div>
+    <div id="${id}-game" class="gscreen">
+      <div class="gteams">
+        <div class="gtcard gta"><h3>🔴 ${g.teamA}</h3><div class="gsc" id="${id}-sa">0</div><div class="gmbs" id="${id}-ma"></div></div>
+        <div class="gtcard gtb"><h3>🔵 ${g.teamB}</h3><div class="gsc" id="${id}-sb">0</div><div class="gmbs" id="${id}-mb2"></div></div>
+      </div>
+      <div class="gcard">
+        <div class="gdts" id="${id}-dots"></div>
+        <div class="gqc" id="${id}-qc">Q 1/${g.qs.length}</div>
+        <div class="gtr"><span class="gtl" id="${id}-tl">⏱ 30s</span><div class="gtwp"><div class="gtbr" id="${id}-tb" style="width:100%"></div></div></div>
+        <div id="${id}-ctx"></div>
+        <div class="gqb" id="${id}-qt">Loading...</div>
+        <div class="gbzi" id="${id}-bzi"></div>
+        <div class="gfbb" id="${id}-fb"></div>
+        <div id="${id}-cs" style="display:none"><div class="gcgd" id="${id}-cg"></div></div>
+        <div id="${id}-bs" style="display:none">
+          <div class="gbzr2">
+            <button class="gbzb bzr" id="${id}-bza" onclick="gBuzz('${id}','a')">🔴 ${g.teamA} BUZZ</button>
+            <button class="gbzb bzb" id="${id}-bzb" onclick="gBuzz('${id}','b')">🔵 ${g.teamB} BUZZ</button>
+          </div>
+          <div class="gjdg" id="${id}-jd" style="display:none">
+            <button class="gbtn gby" onclick="gJudge('${id}',true)">✅ Correct +2</button>
+            <button class="gbtn gbg" onclick="gJudge('${id}',false)">❌ Wrong −1</button>
+          </div>
+          <div id="${id}-ar"></div>
+        </div>
+        <div style="text-align:center;margin-top:0.8rem"><button class="gbtn gbg" onclick="gNext('${id}')" id="${id}-nx" style="display:none">Next →</button></div>
+      </div>
+    </div>
+    <div id="${id}-win" class="gscreen">
+      <div class="gcard" style="text-align:center">
+        <div style="font-size:2.8rem;margin:0.6rem 0">🏆</div>
+        <div id="${id}-wt" style="font-size:1.6rem;font-weight:900;color:#003087"></div>
+        <p style="color:#888;margin:0.3rem 0 1rem;font-size:0.88rem">Go Hornets! 🐝</p>
+        <div class="gfng">
+          <div class="gtcard gta"><h3>🔴 ${g.teamA}</h3><div class="gsc" id="${id}-fa">0</div></div>
+          <div class="gtcard gtb"><h3>🔵 ${g.teamB}</h3><div class="gsc" id="${id}-fb2">0</div></div>
+        </div>
+        <button class="gbtn gbp" onclick="gReset('${id}')">🔄 Play Again</button>
+      </div>
+    </div>
+  </div>
+</div>`;
+}
+
+// Game state storage
+const GS = {};
+function initGame(idx){
+  const id = 'g'+idx;
+  GS[id] = {players:{a:[],b:[]},scores:{a:0,b:0},q:0,mode:'buzzer',timer:null,tsec:30,buzzed:null,answered:false};
+}
+
+const AC=window.AudioContext||window.webkitAudioContext;let gac;
+function gAC(){if(!gac)gac=new AC();return gac;}
+function tone(f,d,t,v){try{const c=gAC(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.type=t||'sine';o.frequency.value=f;g.gain.setValueAtTime(v||0.3,c.currentTime);g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+d);o.start();o.stop(c.currentTime+d);}catch(e){}}
+function sndBuzz(){tone(180,0.3,'sawtooth',0.5);setTimeout(()=>tone(150,0.3,'sawtooth',0.5),150);}
+function sndOK(){[523,659,784,1047].forEach((f,i)=>setTimeout(()=>tone(f,0.18,'sine',0.35),i*120));}
+function sndWrong(){tone(220,0.4,'square',0.3);setTimeout(()=>tone(180,0.5,'square',0.3),200);}
+function sndBounce(){[400,300,500,350].forEach((f,i)=>setTimeout(()=>tone(f,0.08,'sine',0.2),i*80));}
+function sndCrowd(){for(let i=0;i<8;i++)setTimeout(()=>tone(200+Math.random()*400,0.15+Math.random()*0.2,'sine',0.1),i*60);}
+
+function gShowS(id,s){document.querySelectorAll('#'+id+' .gscreen').forEach(x=>x.classList.remove('active'));document.getElementById(id+'-'+s).classList.add('active');}
+function gLobby(id){gUpdL(id);gShowS(id,'lobby');}
+function gJoin(id){
+  const n=document.getElementById(id+'-name').value.trim(),t=document.getElementById(id+'-team').value;
+  if(!n){alert('Enter your name!');return;}if(!t){alert('Choose a team!');return;}
+  const s=GS[id];if(!s.players[t].includes(n))s.players[t].push(n);
+  sndBounce();document.getElementById(id+'-name').value='';document.getElementById(id+'-team').value='';gLobby(id);
+}
+function gUpdL(id){
+  const s=GS[id];
+  document.getElementById(id+'-la').innerHTML=s.players.a.length?s.players.a.map(p=>`<span class="gchp gchr">${p}</span>`).join(''):'<span style="color:#aaa;font-size:0.75rem">No players yet</span>';
+  document.getElementById(id+'-lb').innerHTML=s.players.b.length?s.players.b.map(p=>`<span class="gchp gchb">${p}</span>`).join(''):'<span style="color:#aaa;font-size:0.75rem">No players yet</span>';
+}
+function gMode(id,m){
+  GS[id].mode=m;
+  document.getElementById(id+'-mb').className='gmdb'+(m==='buzzer'?' sel':'');
+  document.getElementById(id+'-mc').className='gmdb'+(m==='choices'?' sel':'');
+}
+function gStart(id){const s=GS[id];s.q=0;s.scores={a:0,b:0};sndBounce();gShowS(id,'game');gUpdScores(id);gLoadQ(id);}
+function gUpdScores(id){
+  const s=GS[id];
+  document.getElementById(id+'-sa').textContent=s.scores.a;
+  document.getElementById(id+'-sb').textContent=s.scores.b;
+  document.getElementById(id+'-ma').innerHTML=s.players.a.map(p=>`<span class="gchp gchr">${p}</span>`).join('')||'—';
+  document.getElementById(id+'-mb2').innerHTML=s.players.b.map(p=>`<span class="gchp gchb">${p}</span>`).join('')||'—';
+}
+function gBuildDots(id){
+  const s=GS[id],g=GAME_DATA[currentGameIdx],n=g.qs.length;
+  document.getElementById(id+'-dots').innerHTML=Array.from({length:n},(_,i)=>`<div class="gdt${i<s.q?' dn':i===s.q?' cr':''}"></div>`).join('');
+}
+function gLoadQ(id){
+  const s=GS[id],g=GAME_DATA[currentGameIdx];
+  if(s.q>=g.qs.length){gEnd(id);return;}
+  const q=g.qs[s.q];s.answered=false;s.buzzed=null;
+  gBuildDots(id);
+  document.getElementById(id+'-qc').textContent=`Q ${s.q+1}/${g.qs.length}`;
+  document.getElementById(id+'-ctx').innerHTML=q.ctx?`<div class="gctx">${q.ctx}</div>`:'';
+  document.getElementById(id+'-qt').textContent=q.q;
+  document.getElementById(id+'-nx').style.display='none';
+  document.getElementById(id+'-fb').className='gfbb';
+  document.getElementById(id+'-bzi').className='gbzi';
+  if(s.mode==='choices'){
+    document.getElementById(id+'-cs').style.display='block';
+    document.getElementById(id+'-bs').style.display='none';
+    const lb=['A','B','C','D'];
+    document.getElementById(id+'-cg').innerHTML=q.c.map((c,i)=>`<button class="gcbt" onclick="gPick('${id}',${i})"><span class="galb">${lb[i]}</span>${c}</button>`).join('');
+  } else {
+    document.getElementById(id+'-cs').style.display='none';
+    document.getElementById(id+'-bs').style.display='block';
+    document.getElementById(id+'-bza').disabled=false;
+    document.getElementById(id+'-bzb').disabled=false;
+    document.getElementById(id+'-jd').style.display='none';
+    document.getElementById(id+'-ar').innerHTML='';
+  }
+  gStartTimer(id);
+}
+function gStartTimer(id){
+  const s=GS[id];clearInterval(s.timer);s.tsec=30;gUpdTimer(id);
+  s.timer=setInterval(()=>{s.tsec--;gUpdTimer(id);if(s.tsec<=0){clearInterval(s.timer);gTimeUp(id);}},1000);
+}
+function gUpdTimer(id){
+  const s=GS[id],p=(s.tsec/30)*100;
+  const b=document.getElementById(id+'-tb');b.style.width=p+'%';b.className='gtbr'+(s.tsec<=6?' urg':'');
+  document.getElementById(id+'-tl').textContent=`⏱ ${s.tsec}s`;
+}
+function gTimeUp(id){
+  const s=GS[id];if(s.answered)return;s.answered=true;sndWrong();
+  gShowFB(id,"⏰ Time's up!",'ntl');gReveal(id);
+  document.getElementById(id+'-nx').style.display='block';
+  if(s.mode!=='choices'){document.getElementById(id+'-bza').disabled=true;document.getElementById(id+'-bzb').disabled=true;document.getElementById(id+'-jd').style.display='none';}
+}
+function gPick(id,idx){
+  const s=GS[id];if(s.answered)return;s.answered=true;clearInterval(s.timer);
+  const g=GAME_DATA[currentGameIdx],q=g.qs[s.q],ok=q.a===idx;
+  document.querySelectorAll('#'+id+'-cg .gcbt').forEach((b,i)=>{b.disabled=true;if(i===q.a)b.classList.add('cor');else if(i===idx&&!ok)b.classList.add('wrg');});
+  if(ok){sndOK();sndCrowd();gShowFB(id,'🎯 Correct! 🐝','cor');}else{sndWrong();gShowFB(id,'❌ Incorrect!','wrg');}
+  document.getElementById(id+'-nx').style.display='block';
+}
+function gBuzz(id,team){
+  const s=GS[id];if(s.answered||s.buzzed)return;s.buzzed=team;sndBuzz();
+  document.getElementById(id+'-bza').disabled=true;document.getElementById(id+'-bzb').disabled=true;clearInterval(s.timer);
+  const ind=document.getElementById(id+'-bzi');
+  const g=GAME_DATA[currentGameIdx];
+  ind.textContent=team==='a'?`🔴 ${g.teamA} BUZZED!`:`🔵 ${g.teamB} BUZZED!`;
+  ind.className='gbzi show '+(team==='a'?'ra':'ba');
+  document.getElementById(id+'-jd').style.display='grid';
+}
+function gJudge(id,ok){
+  const s=GS[id];if(!s.buzzed)return;s.answered=true;
+  document.getElementById(id+'-jd').style.display='none';
+  const g=GAME_DATA[currentGameIdx];
+  const tn=s.buzzed==='a'?`🔴 ${g.teamA}`:`🔵 ${g.teamB}`;
+  if(ok){s.scores[s.buzzed]+=2;sndOK();sndCrowd();gShowFB(id,tn+' +2 pts! 🐝','cor');}
+  else{if(s.scores[s.buzzed]>0)s.scores[s.buzzed]-=1;sndWrong();gShowFB(id,tn+' −1 pt!','wrg');}
+  gUpdScores(id);gReveal(id);document.getElementById(id+'-nx').style.display='block';
+}
+function gReveal(id){
+  const s=GS[id];if(s.mode==='choices')return;
+  const g=GAME_DATA[currentGameIdx],q=g.qs[s.q],lb=['A','B','C','D'];
+  document.getElementById(id+'-ar').innerHTML=`<div class="garv"><strong>✅ Answer:</strong> ${lb[q.a]}. ${q.c[q.a]}</div>`;
+}
+function gShowFB(id,msg,type){const el=document.getElementById(id+'-fb');el.textContent=msg;el.className='gfbb show '+type;}
+function gNext(id){const s=GS[id];s.q++;sndBounce();gLoadQ(id);}
+function gEnd(id){
+  const s=GS[id];clearInterval(s.timer);sndCrowd();
+  const g=GAME_DATA[currentGameIdx];
+  document.getElementById(id+'-fa').textContent=s.scores.a;
+  document.getElementById(id+'-fb2').textContent=s.scores.b;
+  let w;
+  if(s.scores.a>s.scores.b)w=`🔴 ${g.teamA} Wins!`;
+  else if(s.scores.b>s.scores.a)w=`🔵 ${g.teamB} Wins!`;
+  else w='TIE! 🐝';
+  document.getElementById(id+'-wt').textContent=w;
+  gShowS(id,'win');
+}
+function gReset(id){
+  const s=GS[id];s.players={a:[],b:[]};s.scores={a:0,b:0};s.q=0;clearInterval(s.timer);gShowS(id,'join');
+}
+</script>
+</body>
+</html>
